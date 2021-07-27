@@ -21,9 +21,20 @@ class User {
 	}
 
 	// Parameterized Constructor
-	User(string name, float balance) {
+	// Not working will fix later
+	User(string name, int acc, int pass ,float balance) {
 
 		userName = name;
+		userAccountNumber = acc;
+		userPassword = pass;
+		userBalance = balance;
+	}
+
+	void userSignup(string name, int acc, int pass ,float balance){
+
+		userName = name;
+		userAccountNumber = acc;
+		userPassword = pass;
 		userBalance = balance;
 	}
 
@@ -40,6 +51,9 @@ class User {
 int main(){
 
 	int choice;
+
+	User u1;
+
 	cout << "1. Login \n2. Signup" << endl;
 	cin >> choice;
 
@@ -68,6 +82,10 @@ int main(){
 		cin >> tempPassword;
 		cout << "Deposit Amount : ";
 		cin >> tempDeposit;
+		cout << "Account Number : ";
+		cin >> tempAccNumber;
+
+		u1.userSignup(tempName, tempAccNumber, tempPassword, tempDeposit);
 
       	break; 
 	}
@@ -78,5 +96,6 @@ int main(){
 		break;
 	}
 
+	u1.displayUser();
 	return 0;
 }
