@@ -1,4 +1,10 @@
+// create objects at runtime
+// display vector objects
+// Login / Signup
+// Data update
+
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class User {
@@ -50,10 +56,10 @@ class User {
 
 int main(){
 
-	int choice;
-
+	vector<User> userData;	
 	User u1;
 
+	int choice;
 	cout << "1. Login \n2. Signup" << endl;
 	cin >> choice;
 
@@ -96,6 +102,6 @@ int main(){
 		break;
 	}
 
-	u1.displayUser();
+	userData.push_back(u1);
 	return 0;
 }
