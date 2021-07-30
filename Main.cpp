@@ -1,107 +1,146 @@
-// create objects at runtime
-// display vector objects
-// Login / Signup
-// Data update
-
 #include <iostream>
-#include <vector>
 using namespace std;
 
-class User {
+class Bank {
+    
+    private:
+    int acno;
+    char name[30];
+    long balance;
 
-	private:
-	string userName;
-	int userAccountNumber;
-	int userPassword;
-	float userBalance;
+    public:
+    
+    void OpenAccount() {
 
-	public:
+        cout << "Enter Account Number: ";
+        cin >> acno;
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter  Balance: ";
+        cin >> balance;
+    }
 
-	// Default Constructor
-	User() {
+    void ShowAccount() {
 
-		userName = " ";
-		userAccountNumber = 0;
-		userBalance = 0;
-		userPassword = 0;
-	}
+        cout << "Account Number: " << acno << endl;
+        cout << "Name: " << name << endl;
+        cout << "Balance: " << balance << endl;
+    }
 
-	// Parameterized Constructor
-	// Not working will fix later
-	User(string name, int acc, int pass ,float balance) {
+    void Deposit() {
 
-		userName = name;
-		userAccountNumber = acc;
-		userPassword = pass;
-		userBalance = balance;
-	}
+        long amt;
+        cout << "Enter Amount U want to deposit? ";
+        cin >> amt;
+        balance = balance + amt;
+    }
 
-	void userSignup(string name, int acc, int pass ,float balance){
+    void Withdrawal(){
 
-		userName = name;
-		userAccountNumber = acc;
-		userPassword = pass;
-		userBalance = balance;
-	}
+        long amt;
+        cout << "Enter Amount U want to withdraw? ";
+        cin >> amt;
+        if (amt <= balance)
+            balance = balance - amt;
+        else
+            cout << "Less Balance..." << endl;
+    }
 
-	// Display User Details
-	void displayUser(){
-
-		cout << "User Details : " << endl;
-		cout << "1. Account Number: " << userAccountNumber << endl;
-		cout << "2. Name : " << userName << endl;
-		cout << "3. Balance : " << userBalance << endl;
-	}
+    int Search(int);
 };
+
+int Bank::Search(int a) {
+
+    if (acno == a) {
+        ShowAccount();
+        return (1);
+    }
+
+    return (0);
+}
 
 int main(){
 
-	vector<User> userData;	
-	User u1;
+    Bank C[3];
 
-	int choice;
-	cout << "1. Login \n2. Signup" << endl;
-	cin >> choice;
+    int found = 0, a, ch, i;
+    for (i = 0; i <= 2; i++) {
+        C[i].OpenAccount();
+    }
 
-	switch(choice){
+    do {
 
-   	case 1:
+        // display options
+        cout << "\n\n1:Display All\n2:By Account No\n3:Deposit\n4:Withdraw\n5:Exit" << endl;
 
-		int tempAccNumber, tempPassword;
-		
-		cout << "Account Number : ";
-		cin >> tempAccNumber;
-		cout << "Password : ";
-		cin >> tempPassword;
-      	
-		break; 
+        // user input
+        cout << "Choice : ";
+        cin >> ch;
 
-   	case 2: {
+        switch (ch) {
 
-		int tempAccNumber, tempPassword;
-		string tempName;
-		float tempDeposit;
+        case 1: 
 
-		cout << "Name (without space): ";
-		cin >> tempName;
-		cout << "Password : ";
-		cin >> tempPassword;
-		cout << "Deposit Amount : ";
-		cin >> tempDeposit;
-		cout << "Account Number : ";
-		cin >> tempAccNumber;
+            for (i = 0; i <= 2; i++) {
+                C[i].ShowAccount();
+            }
+            
+            break;
+        
+        case 2: 
 
-		u1.userSignup(tempName, tempAccNumber, tempPassword, tempDeposit);
+            cout << "Account Number : ";
+            cin >> a;
+            for (i = 0; i <= 2; i++) {
+                found = C[i].Search(a);
+                if (found)
+                    break;
+            }
 
-      	break; 
-	}
-  
-   	default : 
+            if (!found)
+                cout << "Record Not Found" << endl;
+            break;
 
-	   	cout << "Enter a valid choice!" << endl;
-		break;
-	}
+        case 3: 
+        
+            cout << "Account Number To Deposit Amount? ";
+            cin >> a;
+            for (i = 0; i <= 2; i++) {
+                found = C[i].Search(a);
+                if (found) {
+                    C[i].Deposit();
+                    break;
+                }
+            }
 
-	userData.push_back(u1);
-	return 0;
+            if (!found)
+                cout << "Record Not Found" << endl;
+            break;
+
+        case 4: 
+
+            cout << "Account Number To Withdraw Amount? ";
+            cin >> a;
+            for (i = 0; i <= 2; i++) {
+                found = C[i].Search(a);
+                if (found) {
+                    C[i].Withdrawal();
+                    break;
+                }
+            }
+
+            if (!found)
+                cout << "Record Not Found" << endl;
+            break;
+
+        case 5: 
+            cout << "Terminated" << endl;
+            break;
+        
+        default:
+            cout << "Wrong Option" << endl;
+        }
+
+    } while (ch != 5);
+    return 0;
 }
