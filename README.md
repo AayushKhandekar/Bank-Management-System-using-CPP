@@ -1,4 +1,4 @@
-# Bank Management System in CPP
+# Bank Management System in C++
 
 ### A Bank Management System in CPP which can perform daily bank related functions.
 
